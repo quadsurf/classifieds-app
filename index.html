@@ -15,12 +15,37 @@
       <p>
         <b>Classifieds</b>
       </p>
+
       <md-button ng-click="openSidebar()">
         <md-icon class="mdi mdi-plus-circle"></md-icon>
         New Classified
       </md-button>
+
+      <md-button ng-click="showFilters=true">
+        <md-icon class="mdi mdi-magnify"></md-icon>
+        Filters
+      </md-button>
+
+      <div class="filters" layout="row" layout-align="center center" ng-show="showFilters">
+
+        <md-input-container>
+          <label>Enter Search Term(s)</label>
+          <input type="text" ng-model="classifiedsFilter">
+        </md-input-container>
+
+        <md-input-container>
+          <label>Category</label>
+          <md-select>
+            <md-option ng-repeat="category in categories" value={{category}}>{{category}}</md-option>
+          </md-select>
+        </md-input-container>
+
+      </div>
+
     </div>
   </md-toolbar>
+
+
 
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
     <md-toolbar>
@@ -68,7 +93,7 @@
   </md-sidenav>
 
   <md-content class="md-padding" layout="row" layout-wrap>
-    <md-card ng-repeat="classified in classifieds" flex="30">
+    <md-card ng-repeat="classified in classifieds | filter:classifiedsFilter" flex="30">
       <img ng-src={{classified.image}} class="responsive-img" style="height:309px !important;" alt="" />
       <md-card-content>
 
@@ -98,7 +123,7 @@
           <h3>Admin</h3>
           <div layout="row">
             <md-button ng-click="editClassified(classified)" class="md-primary">Edit</md-button>
-            <md-button class="md-warn">Delete</md-button>
+            <md-button ng-click="deleteClassified($event, classified)" class="md-warn">Delete</md-button>
           </div>
         </div>
 
@@ -107,6 +132,7 @@
   </md-content>
 
 
+  <script src="node_modules/lodash/"></script>
   <script src="node_modules/angular/angular.min.js"></script>
   <script src="node_modules/angular-animate/angular-animate.min.js"></script>
   <script src="node_modules/angular-aria/angular-aria.min.js"></script>
