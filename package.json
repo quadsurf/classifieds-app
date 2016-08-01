@@ -1,0 +1,26 @@
+{
+  "name": "classifieds",
+  "version": "1.0.0",
+  "description": "Classifieds App",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/quadsurf/classifieds-app.git"
+  },
+  "author": "Chris Castro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/quadsurf/classifieds-app/issues"
+  },
+  "homepage": "https://github.com/quadsurf/classifieds-app#readme",
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-animate": "^1.4.8",
+    "angular-aria": "^1.5.8",
+    "angular-material": "^1.1.0-rc.5",
+    "mdi": "^1.6.50"
+  }
+}
