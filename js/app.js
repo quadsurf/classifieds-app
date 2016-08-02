@@ -3,7 +3,7 @@
 (function() {
 
   angular
-    .module('ngClassifieds', ['ngMaterial'])
+    .module('ngClassifieds', ['ngMaterial','ngAnimate'])
     .config(function($mdThemingProvider){
       $mdThemingProvider.theme('default')
         .primaryPalette('teal')

@@ -101,7 +101,8 @@
     <md-card ng-repeat="classified in classifieds |
                         filter: classifiedsFilter |
                         filter: category
-                        " flex="30">
+                        " flex="30"
+                        class="classified">
       <img ng-src={{classified.image}} class="responsive-img" style="height:309px !important;" alt="" />
       <md-card-content>
 
