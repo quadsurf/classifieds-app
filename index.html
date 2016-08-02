@@ -26,26 +26,31 @@
         Filters
       </md-button>
 
-      <div class="filters" layout="row" layout-align="center center" ng-show="showFilters">
-
-        <md-input-container>
-          <label>Enter Search Term(s)</label>
-          <input type="text" ng-model="classifiedsFilter">
-        </md-input-container>
-
-        <md-input-container>
-          <label>Category</label>
-          <md-select>
-            <md-option ng-repeat="category in categories" value={{category}}>{{category}}</md-option>
-          </md-select>
-        </md-input-container>
-
-      </div>
-
     </div>
   </md-toolbar>
 
+  <div class="filters" layout="row" layout-align="center center" ng-show="showFilters">
 
+    <md-input-container>
+      <label style="padding-top:20px;">Enter Search Term(s)</label>
+      <input type="text" ng-model="classifiedsFilter">
+    </md-input-container>
+
+    <md-input-container>
+      <label>Category</label>
+      <md-select ng-model="category">
+        <md-option ng-repeat="category in categories" value={{category}}>{{category}}</md-option>
+      </md-select>
+    </md-input-container>
+
+    <div layout="row">
+      <md-button class="md-warn" ng-click="classifiedsFilter='';category=''">Clear</md-button>
+    </div>
+    <!-- <md-input-container>
+
+    </md-input-container> -->
+
+  </div>
 
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
     <md-toolbar>
@@ -93,7 +98,10 @@
   </md-sidenav>
 
   <md-content class="md-padding" layout="row" layout-wrap>
-    <md-card ng-repeat="classified in classifieds | filter:classifiedsFilter" flex="30">
+    <md-card ng-repeat="classified in classifieds |
+                        filter: classifiedsFilter |
+                        filter: category
+                        " flex="30">
       <img ng-src={{classified.image}} class="responsive-img" style="height:309px !important;" alt="" />
       <md-card-content>
 
@@ -132,8 +140,8 @@
   </md-content>
 
 
-  <script src="node_modules/lodash/"></script>
   <script src="node_modules/angular/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.14.1/lodash.min.js"></script>
   <script src="node_modules/angular-animate/angular-animate.min.js"></script>
   <script src="node_modules/angular-aria/angular-aria.min.js"></script>
   <script src="node_modules/angular-material/angular-material.min.js"></script>

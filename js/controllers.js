@@ -9,22 +9,16 @@
 
       let s = $scope;
 
-      classifiedsService.getClassifieds().then(function(classifieds){
+      classifiedsService.getClassifieds()
+        .then(function(classifieds){
           s.classifieds = classifieds.data;
+          s.categories = getCategories(s.classifieds);
         });
 
       var contact = {
         name: 'Chrissy Pooh',
         phone: '800-555-1212',
         email: 'castro@gmail.com'
-      }
-
-      s.categories = [];
-
-      for (var i = 0; i < s.classifieds.length; i++) {
-        for (var j = 0; i < s.classifieds[i].categories.length; i++) {
-          s.categories.push(s.classifieds[i].categories[j]);
-        }
       }
 
       s.openSidebar = function(){
@@ -83,6 +77,16 @@
         );
 
       };
+
+      function getCategories(arr){
+        var categories = [];
+        angular.forEach(arr,function(item){
+          angular.forEach(item.categories,function(category){
+            categories.push(category);
+          });
+        });
+        return _.uniq(categories);
+      }
 
     }]);
 
