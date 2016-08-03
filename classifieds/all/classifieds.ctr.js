@@ -5,9 +5,22 @@
 
   angular
     .module('ngClassifieds')
-    .controller('classifiedsCtrl', ['$scope','$http','$mdSidenav','$mdToast','$mdDialog','classifiedsService',function($scope,$http,$mdSidenav,$mdToast,$mdDialog,classifiedsService){
+    .controller('allClassifiedsCtr',
+            ['$http','$mdSidenav','$mdToast','$mdDialog','classifiedsService',
+      function($http,$mdSidenav,$mdToast,$mdDialog,classifiedsService){
 
-      let s = $scope;
+      let s = this;
+
+      //functions
+      s.closeSidebar = closeSidebar;
+      s.deleteClassified = deleteClassified;
+      s.editClassified = editClassified;
+
+      //vars
+      s.categories;
+      s.classified;
+      s.classifieds;
+      s.editing;
 
       classifiedsService.getClassifieds()
         .then(function(classifieds){
@@ -15,44 +28,17 @@
           s.categories = getCategories(s.classifieds);
         });
 
-      var contact = {
-        name: 'Chrissy Pooh',
-        phone: '800-555-1212',
-        email: 'castro@gmail.com'
-      }
-
-      s.openSidebar = function(){
-        $mdSidenav('left').open();
-      };
-
-      s.closeSidebar = function(){
+      function closeSidebar(){
         $mdSidenav('left').close();
       };
 
-      s.saveClassified = function(classified){
-        if (classified){
-          classified.contact = contact;
-          s.classifieds.push(classified);
-          s.classified = {};
-          s.closeSidebar();
-          showToast('Classified Saved!');
-        }
-      };
-
-      s.editClassified = function(classified){
+      function editClassified(classified){
         s.editing = true;
-        s.openSidebar();
+        openSidebar();
         s.classified = classified;
       };
 
-      s.saveEdit = function(){
-        s.editing = false;
-        s.classified = {};
-        s.closeSidebar();
-        showToast('Classified Updated');
-      };
-
-      s.deleteClassified = function(event, classified){
+      function deleteClassified(event, classified){
 
         var confirm = $mdDialog.confirm()
           .title('Are you sure you want to delete ' + classified.title + '?')

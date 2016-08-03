@@ -7,7 +7,7 @@
     .factory('classifiedsService',['$http',function($http){
 
       function getClassifieds(){
-        return $http.get('js/classifieds.json');
+        return $http.get('classifieds/classifieds.json');
       };
 
       return {
