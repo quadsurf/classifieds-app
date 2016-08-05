@@ -4,7 +4,7 @@
 
   angular
     .module('ngClassifieds')
-    .factory('classifiedsService',['$http',function($http){
+    .service('classifiedsService',['$http',function($http){
 
       function getClassifieds(){
         return $http.get('classifieds/classifieds.json');

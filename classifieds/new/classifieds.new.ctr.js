@@ -6,62 +6,74 @@
   angular
     .module('ngClassifieds')
     .controller('newClassifiedCtr',
-            ['$mdSidenav','$mdToast','$mdDialog', 'classifiedsService',
-      function($mdSidenav,$mdToast,$mdDialog, classifiedsService){
+            ['$scope','$state','$mdSidenav','$timeout','$mdDialog', 'classifiedsService',
+      function($scope,$state,$mdSidenav,$timeout,$mdDialog, classifiedsService){
 
-      let s = this;
+      let t = this;
+      let s = $scope;
+      let st = $state;
 
       //functions
-      s.closeSidebar = closeSidebar;
-      s.openSidebar = openSidebar;
-      s.saveClassified = saveClassified;
-      s.saveEdit = saveEdit;
+      t.closeSidebar = closeSidebar;
+      // t.saveClassified = saveClassified;
+      // t.saveEdit = saveEdit;
 
       //vars
-      s.classifieds;
-      s.editing;
+      // t.classifieds;
+      // t.editing;
 
-      var contact = {
-        name: 'Chrissy Pooh',
-        phone: '800-555-1212',
-        email: 'castro@gmail.com'
-      }
+      // var contact = {
+      //   name: 'Chrissy Pooh',
+      //   phone: '800-555-1212',
+      //   email: 'castro@gmail.com'
+      // }
 
-      function openSidebar(){
+      $timeout(function(){
         $mdSidenav('left').open();
-      };
+      });
+
+      $scope.$watch('t.sidenavOpen',function(sidenav){
+        if(sidenav === false){
+          $mdSidenav('left')
+            .close()
+            .then(function(){
+              $state.go('classifieds');
+            });
+        }
+      });
 
       function closeSidebar(){
-        $mdSidenav('left').close();
+        // $mdSidenav('left').close();
+        t.sidenavOpen = false;
       };
 
-      function saveClassified(classified){
-        if (classified){
-          classified.contact = contact;
-          s.classifieds.push(classified);
-          s.classified = {};
-          closeSidebar();
-          showToast('Classified Saved!');
-        }
-      };
-
-      function saveEdit(){
-        s.editing = false;
-        s.classified = {};
-        closeSidebar();
-        showToast('Classified Updated');
-      };
-
-      function showToast(message){
-
-        $mdToast.show(
-          $mdToast.simple()
-            .content(message)
-            .position('top, right')
-            .hideDelay(3000)
-        );
-
-      };
+      // function saveClassified(classified){
+      //   if (classified){
+      //     classified.contact = contact;
+      //     t.classifieds.push(classified);
+      //     t.classified = {};
+      //     closeSidebar();
+      //     showToast('Classified Saved!');
+      //   }
+      // };
+      //
+      // function saveEdit(){
+      //   t.editing = false;
+      //   t.classified = {};
+      //   closeSidebar();
+      //   showToast('Classified Updated');
+      // };
+      //
+      // function showToast(message){
+      //
+      //   $mdToast.show(
+      //     $mdToast.simple()
+      //       .content(message)
+      //       .position('top, right')
+      //       .hideDelay(3000)
+      //   );
+      //
+      // };
 
     }]);
 

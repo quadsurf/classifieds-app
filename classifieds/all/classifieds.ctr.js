@@ -6,8 +6,8 @@
   angular
     .module('ngClassifieds')
     .controller('allClassifiedsCtr',
-            ['$http','$mdSidenav','$mdToast','$mdDialog','classifiedsService',
-      function($http,$mdSidenav,$mdToast,$mdDialog,classifiedsService){
+            ['$state','$http','$mdSidenav','$mdToast','$mdDialog','classifiedsService',
+      function($state,$http,$mdSidenav,$mdToast,$mdDialog,classifiedsService){
 
       let s = this;
 
@@ -15,6 +15,7 @@
       s.closeSidebar = closeSidebar;
       s.deleteClassified = deleteClassified;
       s.editClassified = editClassified;
+      s.openSidebar = openSidebar;
 
       //vars
       s.categories;
@@ -27,6 +28,10 @@
           s.classifieds = classifieds.data;
           s.categories = getCategories(s.classifieds);
         });
+
+      function openSidebar(){
+        $state.go('classifieds.new');
+      };
 
       function closeSidebar(){
         $mdSidenav('left').close();
