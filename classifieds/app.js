@@ -4,7 +4,7 @@
 
   angular
 
-    .module('ngClassifieds', ['ngMaterial','ngAnimate','ui.router'])
+    .module('classifiedsApp', ['ngMaterial','ngAnimate','ui.router'])
 
     .config(function($mdThemingProvider,$stateProvider){
 

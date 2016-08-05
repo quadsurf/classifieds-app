@@ -4,29 +4,29 @@
 'use strict';
 
   angular
-    .module('ngClassifieds')
+    .module('classifiedsApp')
     .controller('allClassifiedsCtr',
             ['$state','$http','$mdSidenav','$mdToast','$mdDialog','classifiedsService',
       function($state,$http,$mdSidenav,$mdToast,$mdDialog,classifiedsService){
 
-      let s = this;
+      let t = this;
 
       //functions
-      s.closeSidebar = closeSidebar;
-      s.deleteClassified = deleteClassified;
-      s.editClassified = editClassified;
-      s.openSidebar = openSidebar;
+      t.closeSidebar = closeSidebar;
+      t.deleteClassified = deleteClassified;
+      t.editClassified = editClassified;
+      t.openSidebar = openSidebar;
 
       //vars
-      s.categories;
-      s.classified;
-      s.classifieds;
-      s.editing;
+      t.categories;
+      t.classified;
+      t.classifieds;
+      t.editing;
 
       classifiedsService.getClassifieds()
         .then(function(classifieds){
-          s.classifieds = classifieds.data;
-          s.categories = getCategories(s.classifieds);
+          t.classifieds = classifieds.data;
+          t.categories = getCategories(t.classifieds);
         });
 
       function openSidebar(){
@@ -38,9 +38,9 @@
       };
 
       function editClassified(classified){
-        s.editing = true;
+        t.editing = true;
         openSidebar();
-        s.classified = classified;
+        t.classified = classified;
       };
 
       function deleteClassified(event, classified){
@@ -53,8 +53,8 @@
 
         $mdDialog.show(confirm)
           .then(function(){
-            var index = s.classifieds.indexOf(classified);
-            s.classifieds.splice(index,1);
+            var index = t.classifieds.indexOf(classified);
+            t.classifieds.splice(index,1);
           }, function(){});
       };
 

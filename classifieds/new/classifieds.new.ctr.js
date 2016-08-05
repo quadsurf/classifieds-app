@@ -4,7 +4,7 @@
 'use strict';
 
   angular
-    .module('ngClassifieds')
+    .module('classifiedsApp')
     .controller('newClassifiedCtr',
             ['$scope','$state','$mdSidenav','$timeout','$mdDialog', 'classifiedsService',
       function($scope,$state,$mdSidenav,$timeout,$mdDialog, classifiedsService){

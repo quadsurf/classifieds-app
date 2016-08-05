@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('ngClassifieds')
+    .module('classifiedsApp')
     .service('classifiedsService',['$http',function($http){
 
       function getClassifieds(){
