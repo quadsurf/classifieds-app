@@ -6,10 +6,11 @@
   angular
     .module('classifiedsApp')
     .controller('allClassifiedsCtr',
-            ['$state','$http','$mdSidenav','$mdToast','$mdDialog','classifiedsService',
-      function($state,$http,$mdSidenav,$mdToast,$mdDialog,classifiedsService){
+            ['$scope','$state','$http','$mdSidenav','$mdToast','$mdDialog','classifiedsService',
+      function($scope,$state,$http,$mdSidenav,$mdToast,$mdDialog,classifiedsService){
 
       let t = this;
+      let s = $scope;
 
       //functions
       t.closeSidebar = closeSidebar;
@@ -28,6 +29,12 @@
           t.classifieds = classifieds.data;
           t.categories = getCategories(t.classifieds);
         });
+
+      s.$on('newClassified',function(event,classified){
+        classified.id = t.classifieds.length + 1;
+        t.classifieds.push(classified);
+        showToast('Classified Saved!');
+      });
 
       function openSidebar(){
         $state.go('classifieds.new');

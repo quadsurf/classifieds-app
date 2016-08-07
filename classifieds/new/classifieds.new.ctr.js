@@ -15,21 +15,17 @@
 
       //functions
       t.closeSidebar = closeSidebar;
-      // t.saveClassified = saveClassified;
+      t.saveClassified = saveClassified;
       // t.saveEdit = saveEdit;
 
       //vars
+      t.sidenavOpen;
       // t.classifieds;
       // t.editing;
 
-      // var contact = {
-      //   name: 'Chrissy Pooh',
-      //   phone: '800-555-1212',
-      //   email: 'castro@gmail.com'
-      // }
-
       $timeout(function(){
         $mdSidenav('left').open();
+        t.sidenavOpen = true;
       });
 
       $scope.$watch('t.sidenavOpen',function(sidenav){
@@ -43,19 +39,24 @@
       });
 
       function closeSidebar(){
-        // $mdSidenav('left').close();
+        $mdSidenav('left').close();
         t.sidenavOpen = false;
+        $state.go('classifieds');
       };
 
-      // function saveClassified(classified){
-      //   if (classified){
-      //     classified.contact = contact;
-      //     t.classifieds.push(classified);
-      //     t.classified = {};
-      //     closeSidebar();
-      //     showToast('Classified Saved!');
-      //   }
-      // };
+      function saveClassified(classified){
+        var contact = {
+          name: 'Chrissy Pooh',
+          phone: '800-555-1212',
+          email: 'castro@gmail.com'
+        }
+        if (classified){
+          classified.contact = contact;
+          s.$emit('newClassified', classified);
+          t.sidenavOpen = false;
+          // showToast('Classified Saved!');
+        }
+      };
       //
       // function saveEdit(){
       //   t.editing = false;
