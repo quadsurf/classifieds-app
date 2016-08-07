@@ -25,17 +25,31 @@
       t.classifieds;
       t.editing;
 
-      classifiedsService.getClassifieds()
+      t.classifieds = classifiedsService.ref;
+
+      t.classifieds.$loaded()
         .then(function(classifieds){
-          t.classifieds = classifieds.data;
-          t.categories = getCategories(t.classifieds);
+          t.categories = getCategories(classifieds)
+        }
+      );
+
+      function getCategories(arr){
+        var categories = [];
+        angular.forEach(arr,function(item){
+          angular.forEach(item.categories,function(category){
+            categories.push(category);
+          });
         });
+        return _.uniq(categories);
+      }
 
       s.$on('newClassified',function(event,classified){
-        classified.id = t.classifieds.length + 1;
-        t.classifieds.push(classified);
+        t.classifieds.$add(classified);
+        // classified.id = t.classifieds.length + 1;
+        // t.classifieds.push(classified);
         showToast('Classified Saved!');
       });
+
 
       s.$on('updateToast',function(event,message){
         showToast(message);
@@ -51,8 +65,7 @@
 
       function editClassified(classified){
         st.go('classifieds.edit',{
-          id: classified.id,
-          classified: classified
+          id: classified.$id
         });
       };
 
@@ -66,9 +79,9 @@
 
         $mdDialog.show(confirm)
           .then(function(){
-            var index = t.classifieds.indexOf(classified);
-            t.classifieds.splice(index,1);
-          }, function(){});
+            t.classifieds.$remove(classified);
+            showToast('Classified Deleted!')
+          },function(){});
       };
 
       function showToast(message){
@@ -82,15 +95,12 @@
 
       };
 
-      function getCategories(arr){
-        var categories = [];
-        angular.forEach(arr,function(item){
-          angular.forEach(item.categories,function(category){
-            categories.push(category);
-          });
-        });
-        return _.uniq(categories);
-      }
+      // var ref = firebase.database().ref().child("classdb");
+      // // download the data into a local object
+      // var sync = $firebaseArray(ref);
+      // // synchronize the object with a three-way data binding
+      // // click on `index.html` above to see it used in the DOM!
+      // sync.$bindTo(s, "classdb");
 
     }]);
 

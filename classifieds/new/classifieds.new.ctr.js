@@ -54,7 +54,7 @@
           classified.contact = contact;
           s.$emit('newClassified', classified);
           t.sidenavOpen = false;
-          // showToast('Classified Saved!');
+          $state.go('classifieds');
         }
       };
       //

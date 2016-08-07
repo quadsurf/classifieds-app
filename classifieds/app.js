@@ -4,7 +4,7 @@
 
   angular
 
-    .module('classifiedsApp', ['ngMaterial','ngAnimate','ui.router'])
+    .module('classifiedsApp', ['ngMaterial','ngAnimate','ui.router','firebase'])
 
     .config(function($mdThemingProvider,$stateProvider){
 

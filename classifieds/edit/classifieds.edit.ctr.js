@@ -19,8 +19,8 @@
 
       //vars
       t.sidenavOpen;
-      t.classified = st.params.classified;
-      // t.classifieds;
+      t.classifieds = classifiedsService.ref;
+      t.classified = t.classifieds.$getRecord(st.params.id);
       // t.editing;
 
       $timeout(function(){
@@ -45,22 +45,14 @@
       };
 
       function update(){
-        s.$emit('updateToast','Classified Updated!');
-        $mdSidenav('left').close();
-        t.sidenavOpen = false;
-        st.go('classifieds');
+        t.classifieds.$save(t.classified)
+          .then(function(){
+            s.$emit('updateToast','Classified Updated!');
+            $mdSidenav('left').close();
+            t.sidenavOpen = false;
+            st.go('classifieds');
+          });
       };
-      //
-      // function showToast(message){
-      //
-      //   $mdToast.show(
-      //     $mdToast.simple()
-      //       .content(message)
-      //       .position('top, right')
-      //       .hideDelay(3000)
-      //   );
-      //
-      // };
 
     }]);
 
