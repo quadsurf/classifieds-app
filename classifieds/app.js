@@ -23,6 +23,14 @@
           url: '/new',
           templateUrl: '/classifieds/new/classifieds.new.tpl.html',
           controller: 'newClassifiedCtr as new'
+        })
+        .state('classifieds.edit',{
+          url: '/edit/:id',
+          templateUrl: '/classifieds/edit/classifieds.edit.tpl.html',
+          controller: 'editClassifiedCtr as edit',
+          params: {
+            classified: null
+          }
         });
 
     });

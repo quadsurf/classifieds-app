@@ -11,6 +11,7 @@
 
       let t = this;
       let s = $scope;
+      let st = $state;
 
       //functions
       t.closeSidebar = closeSidebar;
@@ -36,8 +37,12 @@
         showToast('Classified Saved!');
       });
 
+      s.$on('updateToast',function(event,message){
+        showToast(message);
+      });
+
       function openSidebar(){
-        $state.go('classifieds.new');
+        st.go('classifieds.new');
       };
 
       function closeSidebar(){
@@ -45,9 +50,10 @@
       };
 
       function editClassified(classified){
-        t.editing = true;
-        openSidebar();
-        t.classified = classified;
+        st.go('classifieds.edit',{
+          id: classified.id,
+          classified: classified
+        });
       };
 
       function deleteClassified(event, classified){
